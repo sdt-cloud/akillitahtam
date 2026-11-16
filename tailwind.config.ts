@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        fredoka: ["var(--font-fredoka)", "sans-serif"],
-        quicksand: ["var(--font-quicksand)", "sans-serif"],
-        dyslexic: ["OpenDyslexic", "var(--font-quicksand)", "sans-serif"],
+        sans: ["'Nunito'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        heading: ["'Baloo 2'", "'Nunito'", "cursive", "sans-serif"],
+        dyslexic: ["OpenDyslexic", "'Nunito'", "sans-serif"],
       },
       colors: {
         primary: {
