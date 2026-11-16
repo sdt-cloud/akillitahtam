@@ -28,6 +28,50 @@ export default function HomePage() {
 
   const gradeMeta: GradeMeta = GRADES_DATA[selectedGrade];
 
+  // Sınıf seviyesine özel yüksek kontrastlı, okunaklı banner stilleri
+  const getGradeBannerStyle = (grade: 1 | 2 | 3 | 4) => {
+    switch (grade) {
+      case 1:
+        return {
+          cardBg: "bg-gradient-to-r from-rose-100 via-orange-100 to-amber-100 border-2 border-rose-300 shadow-sm",
+          badge: "bg-rose-200/90 text-rose-900 border border-rose-300",
+          iconBox: "bg-white text-rose-600 shadow-md border-2 border-rose-200",
+          title: "text-slate-900",
+          desc: "text-slate-700",
+          btn: "bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white shadow-md",
+        };
+      case 2:
+        return {
+          cardBg: "bg-gradient-to-r from-blue-100 via-indigo-100 to-cyan-100 border-2 border-blue-300 shadow-sm",
+          badge: "bg-blue-200/90 text-blue-900 border border-blue-300",
+          iconBox: "bg-white text-blue-600 shadow-md border-2 border-blue-200",
+          title: "text-slate-900",
+          desc: "text-slate-700",
+          btn: "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-md",
+        };
+      case 3:
+        return {
+          cardBg: "bg-gradient-to-r from-emerald-100 via-teal-100 to-green-100 border-2 border-emerald-300 shadow-sm",
+          badge: "bg-emerald-200/90 text-emerald-900 border border-emerald-300",
+          iconBox: "bg-white text-emerald-600 shadow-md border-2 border-emerald-200",
+          title: "text-slate-900",
+          desc: "text-slate-700",
+          btn: "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md",
+        };
+      case 4:
+        return {
+          cardBg: "bg-gradient-to-r from-purple-100 via-violet-100 to-pink-100 border-2 border-purple-300 shadow-sm",
+          badge: "bg-purple-200/90 text-purple-900 border border-purple-300",
+          iconBox: "bg-white text-purple-600 shadow-md border-2 border-purple-200",
+          title: "text-slate-900",
+          desc: "text-slate-700",
+          btn: "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md",
+        };
+    }
+  };
+
+  const bannerStyle = getGradeBannerStyle(selectedGrade);
+
   // Filtreleme
   const filteredActivities = SAMPLE_ACTIVITIES.filter((item) => {
     if (item.grade !== selectedGrade) return false;
@@ -127,23 +171,23 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* BU HAFTANIN ÖNE ÇIKAN DERS BANNERI (dersekranda "Bu Haftanın Sesi" Modeli) */}
+        {/* BU HAFTANIN ÖNE ÇIKAN DERS BANNERI (Yüksek Kontrastlı & Net Okunabilir) */}
         <section
-          className={`rounded-3xl p-5 sm:p-6 border-2 shadow-sm bg-gradient-to-r ${gradeMeta.colorTheme.accent} text-white flex flex-col md:flex-row items-center justify-between gap-4`}
+          className={`rounded-3xl p-5 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-4 transition-all ${bannerStyle.cardBg}`}
         >
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shadow-inner shrink-0">
+            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shrink-0 ${bannerStyle.iconBox}`}>
               {gradeMeta.weeklyHighlight.icon}
             </div>
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/25 text-white text-xs font-bold uppercase tracking-wider mb-1">
+              <div className={`inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider mb-1 ${bannerStyle.badge}`}>
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Bu Haftanın MEB Maarif Konusu ({gradeMeta.title})</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold font-heading">
+              <h3 className={`text-xl sm:text-2xl font-bold font-heading ${bannerStyle.title}`}>
                 {gradeMeta.weeklyHighlight.topic}
               </h3>
-              <p className="text-xs sm:text-sm text-white/90 mt-0.5">
+              <p className={`text-xs sm:text-sm mt-0.5 font-medium ${bannerStyle.desc}`}>
                 {gradeMeta.weeklyHighlight.desc}
               </p>
             </div>
@@ -156,7 +200,7 @@ export default function HomePage() {
               );
               if (highlightItem) setActiveActivity(highlightItem);
             }}
-            className="w-full md:w-auto px-6 py-3.5 rounded-2xl bg-white text-slate-900 font-bold text-sm sm:text-base btn-smart shadow-lg hover:bg-amber-100 transition-all font-heading whitespace-nowrap"
+            className={`w-full md:w-auto px-6 py-3.5 rounded-2xl font-bold text-sm sm:text-base btn-smart font-heading whitespace-nowrap transition-all ${bannerStyle.btn}`}
           >
             Hemen Başlat 🚀
           </button>
